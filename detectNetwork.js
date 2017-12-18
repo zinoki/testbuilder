@@ -21,9 +21,15 @@ var detectNetwork = function(cardNumber) {
   if (cardLength === 16 && (prefix === '51' || prefix === '52' || prefix === '53' || prefix === '54' || prefix === '55')) {
     return 'MasterCard';
   }
-  if (Math.floor(prefix/10) === 4 && (cardLength === 13 || cardLength === 16 || cardLength === 19)) {
-    return 'Visa'
+  if (prefix[0] === '4' && (cardLength === 13 || cardLength === 16 || cardLength === 19)) {
+    return 'Visa';
   }
+  if ((cardLength === 16 || cardLength === 19) && (prefix === '60' || prefix === '64' || prefix === '65')) {
+      return 'Discover';
+  }
+  if ((cardLength <= 19 && cardLength >= 12) && (prefix === '50' || prefix === '63')) {
+      return 'Maestro';
+      }
 }
 
   // Note: `cardNumber` will always be a string
