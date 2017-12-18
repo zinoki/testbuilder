@@ -21,6 +21,7 @@ var detectNetwork = function(cardNumber) {
   if (cardLength === 16 && (prefix === '51' || prefix === '52' || prefix === '53' || prefix === '54' || prefix === '55')) {
     return 'MasterCard';
   }
+
   if (prefix[0] === '4' && (cardLength === 13 || cardLength === 16 || cardLength === 19)) {
     return 'Visa';
   }
@@ -30,6 +31,13 @@ var detectNetwork = function(cardNumber) {
   if ((cardLength <= 19 && cardLength >= 12) && (prefix === '50' || prefix === '63')) {
       return 'Maestro';
       }
+  if ((cardLength === 16 || cardLength === 18 || cardLength === 19) && (prefix === '49' || prefix === '56' || prefix === '63' || prefix === '67')) {
+      return 'Switch';
+  }
+  if ((cardLength >= 16 && cardLength <= 19) && (prefix ===  '62')) {
+      return 'China UnionPay';
+  } 
+
 }
 
   // Note: `cardNumber` will always be a string
