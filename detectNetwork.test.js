@@ -173,7 +173,7 @@ describe('Maestro', function() {
   var prefix5020 = '5020';
   var prefix5038 = '5038';
   var prefix6304 = '6304';
-  for (var length = 8; length <= 15; length++) {
+  for (var length = 12-4; length <= 19-4; length++) {
       (function(length) {
           it('has a prefix of ' + prefix5018 + ' and a length of ' + length, function() {
               var test = prefix5018 + (10 ** (length-1));
@@ -196,5 +196,16 @@ describe('Maestro', function() {
     
 });
 
-describe('should support China UnionPay')
+describe('China UnionPay', function() {
+  for (var prefix = 622126; prefix <= 622925; prefix++) {
+    (function(prefix) {
+      it('has a prefix of ' + prefix + ' and a length of ' + 16, function() {
+        var test = prefix + ('1234567890');
+          detectNetwork(test).should.equal('China UnionPay');
+              })
+          })(prefix)
+
+}
+})
+
 describe('should support Switch')
