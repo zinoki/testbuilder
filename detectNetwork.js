@@ -7,36 +7,41 @@
 //   1. The first few numbers (called the prefix)
 //   2. The number of digits in the number (called the length)
 
-var detectNetwork = function(cardNumber) {
-  var cardLength = cardNumber.toString().length;
-      var prefix = cardNumber.toString().split('')[0];
-          prefix += cardNumber.toString().split('')[1]
-    //var prefix = Math.floor(cardNumber/(Math.exp(10, (cardLength-2))));
-  if (cardLength === 14 && (prefix === '38' || prefix === '39')) {
+var detectNetwork = function (cardNumber) {
+  var cardString = cardNumber.toString();
+  var cardLength = cardString.length;
+  var prefix1 = Number(cardString.slice(0, 1));
+  var prefix2 = Number(cardString.slice(0, 2));
+  var prefix3 = Number(cardString.slice(0, 3));
+  var prefix4 = Number(cardString.slice(0, 4));
+  var prefix6 = Number(cardString.slice(0, 6));
+
+  if (cardLength === 14 && (prefix2 === 38 || prefix2 === 39)) {
     return "Diner's Club";
   }
-  if (cardLength === 15 && (prefix === '34' || prefix === '37')) {
+  if (cardLength === 15 && (prefix2 === 34 || prefix2 === 37)) {
     return 'American Express';
   }
-  if (cardLength === 16 && (prefix === '51' || prefix === '52' || prefix === '53' || prefix === '54' || prefix === '55')) {
-    return 'MasterCard';
-  }
-
-  if (prefix[0] === '4' && (cardLength === 13 || cardLength === 16 || cardLength === 19)) {
+  if ((cardLength === 13 || cardLength === 16 || cardLength === 19) && (prefix1 === 4 && prefix4 !== 4903 && prefix4 !== 4905 && prefix4 !== 4911 && prefix4 !== 4936)) {
     return 'Visa';
   }
-  if ((cardLength === 16 || cardLength === 19) && (prefix === '60' || prefix === '64' || prefix === '65')) {
+  if (cardLength === 16 && (prefix2 >= 51 && prefix2 <= 55)) {
+    return 'MasterCard';
+  }
+  if ((cardLength === 16 || cardLength === 19) && ((prefix3 >= 644 && prefix3 <= 649) || prefix4 === 6011 || prefix2 === 65)) {
       return 'Discover';
   }
-  if ((cardLength <= 19 && cardLength >= 12) && (prefix === '50' || prefix === '63')) {
+  if ((cardLength >= 12 && cardLength <= 19) && (prefix4 === 5018 || prefix4 === 5020 || prefix4 === 5038 || prefix4 === 6304)) {
       return 'Maestro';
       }
-  if ((cardLength === 16 || cardLength === 18 || cardLength === 19) && (prefix === '49' || prefix === '56' || prefix === '63' || prefix === '67')) {
-      return 'Switch';
-  }
-  if ((cardLength >= 16 && cardLength <= 19) && (prefix ===  '62')) {
+
+  if ((cardLength >= 16 && cardLength <= 19) && ((prefix6 >=  622126 && prefix6 <= 622925) || (prefix3 >= 624 && prefix3 <= 626) || (prefix4 >= 6282 && prefix4 <= 6288))) {
       return 'China UnionPay';
   } 
+
+  if ((cardLength === 16 || cardLength === 18 || cardLength === 19) && (prefix4 === 4903 || prefix4 === 4905 || prefix4 === 4911 || prefix4 === 4936 || prefix4 === 6333 || prefix4 === 6759 || prefix6 === 564182 || prefix6 === 633110)) {
+      return 'Switch';
+  }
 
 }
 
