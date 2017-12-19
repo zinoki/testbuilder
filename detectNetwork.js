@@ -37,12 +37,11 @@ var detectNetwork = function (cardNumber) {
 
   if ((cardLength >= 16 && cardLength <= 19) && ((prefix6 >=  622126 && prefix6 <= 622925) || (prefix3 >= 624 && prefix3 <= 626) || (prefix4 >= 6282 && prefix4 <= 6288))) {
       return 'China UnionPay';
-  } 
+  }
 
   if ((cardLength === 16 || cardLength === 18 || cardLength === 19) && (prefix4 === 4903 || prefix4 === 4905 || prefix4 === 4911 || prefix4 === 4936 || prefix4 === 6333 || prefix4 === 6759 || prefix6 === 564182 || prefix6 === 633110)) {
       return 'Switch';
   }
-
 }
 
   // Note: `cardNumber` will always be a string
